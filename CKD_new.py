@@ -10,6 +10,11 @@ import pandas as pd
 #from sklearn.impute import SimpleImputer
 from sklearn.preprocessing import Imputer
 from sklearn_pandas import DataFrameMapper, CategoricalImputer
+# train test split
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.naive_bayes import GaussianNB
+from sklearn.svm import SVC
 #from sklearn.impute import SimpleImputer
 
 #class Categorical_Imputer:
@@ -72,4 +77,37 @@ df[['rbc','pc']] = df[['rbc','pc']].replace(to_replace={'abnormal':1,'normal':0}
 df[['pcc','ba']] = df[['pcc','ba']].replace(to_replace={'present':1,'notpresent':0})
 df[['appet']] = df[['appet']].replace(to_replace={'good':1,'poor':0})
 
-df.corr().to_csv('C:\Personal\MTech\Books and Materials\Data Mining\Assignment\Assignment_BLR (1)\kidneyChronic_processed.csv')
+#df.corr().to_csv('C:\Personal\MTech\Books and Materials\Data Mining\Assignment\Assignment_BLR (1)\kidneyChronic_processed.csv')
+
+
+# load X and y
+X = df.drop(columns=['class'])
+y= df['class']
+
+# train test split
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, 
+                                                    random_state=21, stratify=y)
+
+#Using Decision Tree Classification
+
+Decision_tree_classification = DecisionTreeClassifier().fit(X_train, y_train)
+print('Accuracy of Decision Tree classifier on training set: {:.2f}'
+     .format(Decision_tree_classification.score(X_train, y_train)))
+print('Accuracy of Decision Tree classifier on test set: {:.2f}'
+     .format(Decision_tree_classification.score(X_test, y_test)))
+
+#Using Gaussian Naive Bayes
+Gaussian_Naive_Bayes = GaussianNB()
+Gaussian_Naive_Bayes.fit(X_train, y_train)
+print('Accuracy of Gaussian Naive Bayes classifier on training set: {:.2f}'
+     .format(Gaussian_Naive_Bayes.score(X_train, y_train)))
+print('Accuracy of Gaussian Naive Bayes classifier on test set: {:.2f}'
+     .format(Gaussian_Naive_Bayes.score(X_test, y_test)))
+
+#Using SVM
+svm = SVC()
+svm.fit(X_train, y_train)
+print('Accuracy of SVM classifier on training set: {:.2f}'
+     .format(svm.score(X_train, y_train)))
+print('Accuracy of SVM classifier on test set: {:.2f}'
+     .format(svm.score(X_test, y_test)))
