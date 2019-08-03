@@ -84,7 +84,25 @@ df[['rbc','pc']] = df[['rbc','pc']].replace(to_replace={'abnormal':1,'normal':0}
 df[['pcc','ba']] = df[['pcc','ba']].replace(to_replace={'present':1,'notpresent':0})
 df[['appet']] = df[['appet']].replace(to_replace={'good':1,'poor':0})
 
-df2 =df
+df2 = df.dropna(axis=0)
+df2['class'].value_counts()
+corr_df = df2.corr()
+# Generate a mask for the upper triangle
+mask = np.zeros_like(corr_df, dtype=np.bool)
+mask[np.triu_indices_from(mask)] = True
+
+# Set up the matplotlib figure
+f, ax = pyplot.subplots(figsize=(11, 9))
+
+# Generate a custom diverging colormap
+cmap = sns.diverging_palette(220, 10, as_cmap=True)
+
+# Draw the heatmap with the mask and correct aspect ratio
+sns.heatmap(corr_df, mask=mask, cmap=cmap, vmax=.3, center=0,
+            square=True, linewidths=.5, cbar_kws={"shrink": .5})
+pyplot.title('Correlations between different predictors')
+pyplot.show()
+
 
 #df.corr().to_csv('C:\Personal\MTech\Books and Materials\Data Mining\Assignment\Assignment_BLR (1)\kidneyChronic_processed.csv')
 
