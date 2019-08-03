@@ -103,7 +103,7 @@ mask[np.triu_indices_from(mask)] = True
 f, ax = pyplot.subplots(figsize=(11, 9))
 
 # Generate a custom diverging colormap
-cmap = sns.diverging_palette(220, 10, as_cmap=True)
+cmap = sns.diverging_palette(10, 300, as_cmap=True)
 
 # Draw the heatmap with the mask and correct aspect ratio
 sns.heatmap(corr_df, mask=mask, cmap=cmap, vmax=.3, center=0,
@@ -168,13 +168,13 @@ pyplot.plot(fpr, tpr, marker='.')
 # show the plot
 pyplot.show()
 
-##Using SVM
-#svm = SVC()
-#svm.fit(X_train, y_train)
-#print('Accuracy of SVM classifier on training set: {:.2f}'
-#     .format(svm.score(X_train, y_train)))
-#print('Accuracy of SVM classifier on test set: {:.2f}'
-#     .format(svm.score(X_test, y_test)))
+#Using SVM
+svm = SVC()
+svm.fit(X_train, y_train)
+print('Accuracy of SVM classifier on training set: {:.2f}'
+     .format(svm.score(X_train, y_train)))
+print('Accuracy of SVM classifier on test set: {:.2f}'
+     .format(svm.score(X_test, y_test)))
 
 #Using Random Forest Classifier
 Random_forest_Classifier = RandomForestClassifier()
@@ -225,3 +225,24 @@ pyplot .xticks(x_values, feature_list, rotation='vertical')
 # Axis labels and title
 pyplot .ylabel('Importance'); pyplot .xlabel('Variable'); pyplot .title('Variable Importances');
 
+
+## Get numerical feature importances
+#feature_list = df.columns
+#importances = list(Decision_tree_classification.feature_importances_)
+## List of tuples with variable and importance
+#feature_importances = [(feature, round(importance, 2)) for feature, importance in zip(feature_list, importances)]
+## Sort the feature importances by most important first
+#feature_importances = sorted(feature_importances, key = lambda x: x[1], reverse = True)
+## Print out the feature and importances 
+#[print('Variable: {:20} Importance: {}'.format(*pair)) for pair in feature_importances];
+#
+## Set the style
+#pyplot .style.use('fivethirtyeight')
+## list of x locations for plotting
+#x_values = list(range(len(importances)))
+## Make a bar chart
+#pyplot .bar(x_values, importances, orientation = 'vertical')
+## Tick labels for x axis
+#pyplot .xticks(x_values, feature_list, rotation='vertical')
+## Axis labels and title
+#pyplot .ylabel('Importance'); pyplot .xlabel('Variable'); pyplot .title('Variable Importances');
