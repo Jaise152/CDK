@@ -7,6 +7,8 @@ Created on Fri Aug  2 15:41:01 2019
 
 import numpy as np
 import pandas as pd
+import missingno as msno
+import seaborn as sns
 #from sklearn.impute import SimpleImputer
 from sklearn.preprocessing import Imputer
 from sklearn_pandas import DataFrameMapper, CategoricalImputer
@@ -16,12 +18,12 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.naive_bayes import GaussianNB
 from sklearn.svm import SVC
 from sklearn.ensemble import RandomForestClassifier
-import missingno as msno 
 from sklearn.metrics import roc_curve
 from sklearn.metrics import roc_auc_score
 from matplotlib import pyplot
-#from sklearn.impute import SimpleImputer
 
+from sklearn.datasets import make_classification
+from sklearn.ensemble import ExtraTreesClassifier
 class Categorical_Imputer:
     """
     Imputing categorical data using the most frequent value
