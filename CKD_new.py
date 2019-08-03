@@ -9,6 +9,7 @@ import numpy as np
 import pandas as pd
 import missingno as msno
 import seaborn as sns
+import pylab as pl
 #from sklearn.impute import SimpleImputer
 from sklearn.preprocessing import Imputer
 from sklearn_pandas import DataFrameMapper, CategoricalImputer
@@ -83,6 +84,12 @@ df[['htn','dm','cad','pe','ane']] = df[['htn','dm','cad','pe','ane']].replace(to
 df[['rbc','pc']] = df[['rbc','pc']].replace(to_replace={'abnormal':1,'normal':0})
 df[['pcc','ba']] = df[['pcc','ba']].replace(to_replace={'present':1,'notpresent':0})
 df[['appet']] = df[['appet']].replace(to_replace={'good':1,'poor':0})
+
+#Visualizing data
+df[numerical_columns].hist(bins =30, figsize = (9,9))
+pyplot.title('Histogram of numerical data');
+pyplot.savefig("var_hist")
+pyplot.show()
 
 #Checking correlation between diffrent predictors
 df2 = df.dropna(axis=0)
@@ -161,13 +168,13 @@ pyplot.plot(fpr, tpr, marker='.')
 # show the plot
 pyplot.show()
 
-#Using SVM
-svm = SVC()
-svm.fit(X_train, y_train)
-print('Accuracy of SVM classifier on training set: {:.2f}'
-     .format(svm.score(X_train, y_train)))
-print('Accuracy of SVM classifier on test set: {:.2f}'
-     .format(svm.score(X_test, y_test)))
+##Using SVM
+#svm = SVC()
+#svm.fit(X_train, y_train)
+#print('Accuracy of SVM classifier on training set: {:.2f}'
+#     .format(svm.score(X_train, y_train)))
+#print('Accuracy of SVM classifier on test set: {:.2f}'
+#     .format(svm.score(X_test, y_test)))
 
 #Using Random Forest Classifier
 Random_forest_Classifier = RandomForestClassifier()
@@ -217,3 +224,4 @@ pyplot .bar(x_values, importances, orientation = 'vertical')
 pyplot .xticks(x_values, feature_list, rotation='vertical')
 # Axis labels and title
 pyplot .ylabel('Importance'); pyplot .xlabel('Variable'); pyplot .title('Variable Importances');
+
