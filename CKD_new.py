@@ -83,7 +83,8 @@ df[['htn','dm','cad','pe','ane']] = df[['htn','dm','cad','pe','ane']].replace(to
 df[['rbc','pc']] = df[['rbc','pc']].replace(to_replace={'abnormal':1,'normal':0})
 df[['pcc','ba']] = df[['pcc','ba']].replace(to_replace={'present':1,'notpresent':0})
 df[['appet']] = df[['appet']].replace(to_replace={'good':1,'poor':0})
-#Find Correlation
+
+#Checking correlation between diffrent predictors
 df2 = df.dropna(axis=0)
 df2['class'].value_counts()
 corr_df = df2.corr()
@@ -194,3 +195,25 @@ pyplot.plot([0, 1], [0, 1], linestyle='--')
 pyplot.plot(fpr, tpr, marker='.')
 # show the plot
 pyplot.show()
+
+
+# Get numerical feature importances
+feature_list = df.columns
+importances = list(Random_forest_Classifier.feature_importances_)
+# List of tuples with variable and importance
+feature_importances = [(feature, round(importance, 2)) for feature, importance in zip(feature_list, importances)]
+# Sort the feature importances by most important first
+feature_importances = sorted(feature_importances, key = lambda x: x[1], reverse = True)
+# Print out the feature and importances 
+[print('Variable: {:20} Importance: {}'.format(*pair)) for pair in feature_importances];
+
+# Set the style
+pyplot .style.use('fivethirtyeight')
+# list of x locations for plotting
+x_values = list(range(len(importances)))
+# Make a bar chart
+pyplot .bar(x_values, importances, orientation = 'vertical')
+# Tick labels for x axis
+pyplot .xticks(x_values, feature_list, rotation='vertical')
+# Axis labels and title
+pyplot .ylabel('Importance'); pyplot .xlabel('Variable'); pyplot .title('Variable Importances');
