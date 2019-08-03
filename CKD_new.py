@@ -83,7 +83,7 @@ df[['htn','dm','cad','pe','ane']] = df[['htn','dm','cad','pe','ane']].replace(to
 df[['rbc','pc']] = df[['rbc','pc']].replace(to_replace={'abnormal':1,'normal':0})
 df[['pcc','ba']] = df[['pcc','ba']].replace(to_replace={'present':1,'notpresent':0})
 df[['appet']] = df[['appet']].replace(to_replace={'good':1,'poor':0})
-
+#Find Correlation
 df2 = df.dropna(axis=0)
 df2['class'].value_counts()
 corr_df = df2.corr()
